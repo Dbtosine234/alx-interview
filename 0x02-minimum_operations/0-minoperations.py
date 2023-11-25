@@ -1,16 +1,24 @@
 #!/usr/bin/python3
+"""
+Tasks 0: write a method that calculates the fewest number of operations
+needed to result in exactly n H characters in the file.
+"""
+
 
 def minOperations(n):
-        if n == 1:
-                    return 0
-                    
-                    dp = [0] * (n + 1)
-                        for i in range(2, n + 1):
-                                    dp[i] = i  # Initialize with the maximum possible value
-                                            
-                                                    for j in range(i - 1, 1, -1):
-                                                                    if i % j == 0:
-                                                                                        dp[i] = dp[j] + (i // j)
-                                                                                                        break
-                                                                                                        
-                                                                                                        return dp[n]
+    if n == 1:
+        return 0
+
+    ops = 0
+    h = 1
+    while h < n:
+        if n % h == 0:
+            h_copy = h
+            ops += 1
+        h += h_copy
+        ops += 1
+
+    if h == n:
+        return ops
+    else:
+        return 0
